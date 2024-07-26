@@ -1,7 +1,7 @@
 package com.wawa.wawa.controller;
 
 import com.wawa.wawa.entity.User;
-import com.wawa.wawa.service.UserService;
+import com.wawa.wawa.service.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 

@@ -1,4 +1,4 @@
-package com.wawa.wawa.service;
+package com.wawa.wawa.service.user;
 
 import com.wawa.wawa.entity.User;
 import com.wawa.wawa.repository.UserRepository;
@@ -27,10 +27,9 @@ public class UserServiceImpl implements UserService{
         return null;
     }
 
-
     @Override
     public User getUser(Integer id) {
-        return userRepository.findById(id).get();
+        return userRepository.getReferenceById(id);
     }
 
     @Override

@@ -1,4 +1,4 @@
-package com.wawa.wawa.service;
+package com.wawa.wawa.service.user;
 
 import com.wawa.wawa.entity.User;
 import java.util.List;
