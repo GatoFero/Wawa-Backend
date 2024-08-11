@@ -1,36 +1,37 @@
 package com.wawa.wawa.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.io.Serializable;
+import java.util.List;
 
-@Getter
 @Setter
+@Getter
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "user")
-public class User implements Serializable {
+public class User {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "idUser")
-    private Integer idUser;
-
-    @Column(name = "username")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer id;
     private String username;
-
-    @Column(name = "password")
     private String password;
-
-    @Column(name = "email")
     private String email;
+    private String phone;
 
-    @Column(name = "vip")
     private boolean vip;
 
+    private Integer level;
+    private Integer top;
+
+    @OneToMany(targetEntity = Progress.class, fetch = FetchType.LAZY, mappedBy = "user")
+    private List<Progress> progress;
+
+    @ManyToMany(targetEntity = Achievement.class, fetch = FetchType.LAZY)
+    private List<Achievement> achievements;
 }

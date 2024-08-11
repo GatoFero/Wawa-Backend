@@ -1,12 +1,16 @@
-package com.wawa.wawa.service.course;
+package com.wawa.wawa.service.interfaces;
 
 import com.wawa.wawa.entity.Course;
+
 import java.util.List;
 
 public interface CourseService {
+
     Course getCourseById(int id);
-    Course getCourseByName(String name);
-    Course addCourse(Course course);
-    Course updateCourse(Course course);
+
     List<Course> getAllCourses();
+
+    Course addCourse(Course course);
+
+    void deleteCourse(int id);
 }

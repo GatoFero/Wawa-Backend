@@ -1,4 +1,4 @@
-package com.wawa.wawa.entity.superclass;
+package com.wawa.wawa.entity;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -6,15 +6,16 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+@Setter
+@Getter
 @AllArgsConstructor
 @NoArgsConstructor
-@MappedSuperclass
-@Getter
-@Setter
-public abstract class EducationalMaterial {
+@Entity
+public class Achievement {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    protected Integer id;
-    @Column(name = "name")
-    protected String name;
+    private Integer id;
+    private String name;
+    private String description;
 }

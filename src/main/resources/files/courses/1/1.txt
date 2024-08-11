@@ -1,0 +1,7 @@
+theme
+section=Aritmética
+title=Números Enteros y Racionales
+subTitles=Definición y Ejemplos--Operaciones Básicas
+contents=Los números enteros incluyen los números positivos, negativos y el cero. Los números racionales son aquellos que se pueden expresar como el cociente de dos enteros, con un denominador distinto de cero.--Las operaciones con números enteros y racionales incluyen la suma, resta, multiplicación y división, respetando las reglas de los signos y la simplificación de fracciones.
+examples=Números enteros: -3, 0, 5.--Números racionales: 1/2, -3/4, 5.
+seeMore=https://es.wikipedia.org/wiki/N%C3%BAmero_entero--https://es.wikipedia.org/wiki/N%C3%BAmero_racional
