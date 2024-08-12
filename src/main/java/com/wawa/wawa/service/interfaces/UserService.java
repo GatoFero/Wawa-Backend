@@ -1,19 +1,28 @@
 package com.wawa.wawa.service.interfaces;
 
 import com.wawa.wawa.entity.User;
-import com.wawa.wawa.utiles.UpdateData;
 
 import java.util.List;
 
 public interface UserService {
 
-    User getUserById(Long id);
-
     List<User> getAllUsers();
+    User getUserById(int id);
+    User getUserByEmail(String email);
+    User getUserByUsername(String username);
+    boolean progressExists(String username, int idCourse);
 
-    User getUserByName(String name);
+    void addUser(User user);
+    User updateUser(User user);
+    void deleteUser(int id);
 
-    User saveUser(User user);
+    User updateUserEmail(String email, int id);
+    User updateUserUsername(String username, int id);
+    User updateUserPassword(String password, String newPassword, int id);
 
-    Object updateUsername(UpdateData updateData);
+    void buyVip(int id);
+
+    boolean existsUser(int id);
+    boolean existsUserByEmail(String email);
+    boolean existsUserByUsername(String username);
 }

@@ -1,5 +1,6 @@
 package com.wawa.wawa.dtos;
 
+import com.wawa.wawa.entity.Course;
 import lombok.*;
 
 @Getter
@@ -10,11 +11,8 @@ import lombok.*;
 @Builder
 public class ProgressDto {
 
-    private Integer id;
     private String state;
-    private float progress;
-    private int themesCompleted;
-    private int activitiesCompleted;
-    private int examsCompleted;
-    private CourseDto course;
+    private Float progress;
+    private Integer materialsCompleted;
+    private Course course;
 }

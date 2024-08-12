@@ -3,6 +3,8 @@ package com.wawa.wawa.dtos;
 
 import lombok.*;
 
+import java.util.List;
+
 @Getter
 @Setter
 @AllArgsConstructor
@@ -11,9 +13,6 @@ import lombok.*;
 @Builder
 public class UserDataDto {
 
-    private Long id;
-    private String username;
-    private String password;
-    private String email;
-    private String phone;
+    private UserInfoDto userInfo;
+    private List<ProgressDto> progress;
 }

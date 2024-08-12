@@ -16,12 +16,14 @@ public class AdapterMaterial {
 
     @SneakyThrows
     public void createMaterial(int idCourse, int idMaterial) {
-        BufferedReader br = new BufferedReader(new FileReader(getRuta(idCourse,idMaterial)));
+        String route = EducationalMaterial.getRuta(idCourse, idMaterial);
+        BufferedReader br = new BufferedReader(new FileReader(route));
         String line;
         line = br.readLine();
-        switch (line){
-            case "theme":
-                educationalMaterial = new Theme(getRuta(idCourse,idMaterial));
+        String[] type = line.split("=");
+        switch (type[1]){
+            case "Tema":
+                educationalMaterial = new Theme(route,idMaterial);
                 break;
             case "activity":
                 System.out.println("ga");
@@ -29,9 +31,5 @@ public class AdapterMaterial {
             default:
                 break;
         }
-    }
-
-    private String getRuta(int idCurse, int idEducationalMaterial){
-        return "src/main/resources/files/courses/"+idCurse+"/"+idEducationalMaterial+".txt";
     }
 }

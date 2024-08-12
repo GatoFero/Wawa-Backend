@@ -20,10 +20,7 @@ public class Course {
     private Integer id;
     private String name;
     private String description;
-
-    private Integer cantThemes;
-    private Integer cantActivities;
-    private Integer cantExams;
+    private Integer cantContent;
 
     @JsonIgnore
     @OneToMany(targetEntity = Progress.class, fetch = FetchType.LAZY, mappedBy = "course")

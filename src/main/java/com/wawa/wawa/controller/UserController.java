@@ -1,85 +1,66 @@
 package com.wawa.wawa.controller;
 
-import com.wawa.wawa.dtos.CourseDto;
 import com.wawa.wawa.dtos.ProgressDto;
+import com.wawa.wawa.dtos.UserDataDto;
 import com.wawa.wawa.dtos.UserInfoDto;
-import com.wawa.wawa.entity.Progress;
 import com.wawa.wawa.entity.User;
 import com.wawa.wawa.service.interfaces.UserService;
-import com.wawa.wawa.utiles.Message;
-import com.wawa.wawa.utiles.UpdateData;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.List;
-import java.util.Optional;
-import java.util.stream.Collectors;
-
-import static ch.qos.logback.classic.spi.ThrowableProxyVO.build;
 
 @RestController
 @RequestMapping("/user")
 public class UserController {
 
-    @Autowired
-    private UserService userService;
+    private final UserService userService;
 
+    public UserController(UserService userService) {
+        this.userService = userService;
+    }
 
-    @GetMapping("/{id}")
-    public ResponseEntity<?> getUserById(@PathVariable Long id) {
-        User user = userService.getUserById(id);
+    @GetMapping("/{username}")
+    public ResponseEntity<?> getUserInfo(@PathVariable String username) {
+
+        User user = userService.getUserByUsername(username);
         if(user != null) {
-            List<ProgressDto> progress = user.getProgress().stream().map(p -> ProgressDto.builder()
-                    .id(p.getId())
-                    .state(p.getState())
-                    .progress(p.getProgress())
-                    .themesCompleted(p.getThemesCompleted())
-                    .examsCompleted(p.getExamsCompleted())
-                    .activitiesCompleted(p.getActivitiesCompleted())
-                    .course(CourseDto.builder()
-                            .id(p.getCourse().getId())
-                            .name(p.getCourse().getName())
-                            .description(p.getCourse().getDescription()).build())
-                    .build()).collect(Collectors.toList());
 
             UserInfoDto userInfoDto = UserInfoDto.builder()
                     .id(user.getId())
                     .username(user.getUsername())
+                    .email(user.getEmail())
                     .vip(user.isVip())
                     .level(user.getLevel())
-                    .top(user.getTop())
+                    .top(user.getTop()).build();
+
+            List<ProgressDto> progress = user.getProgress().stream().map(p -> ProgressDto.builder()
+                    .state(p.getState())
+                    .progress(p.getProgress())
+                    .materialsCompleted(p.getMaterialsCompleted())
+                    .course(p.getCourse()).build()).toList();
+
+            UserDataDto userDataDto = UserDataDto.builder()
+                    .userInfo(userInfoDto)
                     .progress(progress).build();
-             return ResponseEntity.ok(userInfoDto);
+
+            return ResponseEntity.ok(userDataDto);
         }
         return ResponseEntity.notFound().build();
     }
 
-    @GetMapping("/all")
-    public ResponseEntity<?> getAllUsers() {
-        List<User> users = userService.getAllUsers();
-        if(users != null) {
-            return ResponseEntity.ok(userService.getAllUsers().stream()
-                    .map(user -> UserInfoDto.builder()
-                            .id(user.getId())
-                            .username(user.getUsername())
-                            .vip(user.isVip())
-                            .level(user.getLevel())
-                            .top(user.getTop()).build())
-                    .collect(Collectors.toList()));
+    @GetMapping("/{username}/profile")
+    public ResponseEntity<?> getUserProfile(@PathVariable String username) {
+        User user = userService.getUserByUsername(username);
+        if(user != null) {
+            UserInfoDto userInfoDto = UserInfoDto.builder()
+                    .id(user.getId())
+                    .username(user.getUsername())
+                    .email(user.getEmail())
+                    .vip(user.isVip())
+                    .level(user.getLevel())
+                    .top(user.getTop()).build();
+            return ResponseEntity.ok(userInfoDto);
         }
         return ResponseEntity.notFound().build();
-    }
-
-    @PostMapping("/register")
-    public Object registerUser(@RequestBody User user) {
-        userService.saveUser(user);
-        return new Message("User registered");
-    }
-
-    @PutMapping("update/username")
-    public Object updateUsername(@RequestBody UpdateData updateData) {
-        userService.updateUsername(updateData);
-        return new Message("User updated");
     }
 }

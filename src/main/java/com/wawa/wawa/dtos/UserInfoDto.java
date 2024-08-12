@@ -1,10 +1,6 @@
 package com.wawa.wawa.dtos;
 
-import com.wawa.wawa.entity.User;
 import lombok.*;
-
-import java.util.ArrayList;
-import java.util.List;
 
 @Getter
 @Setter
@@ -16,8 +12,8 @@ public class UserInfoDto {
 
     private Integer id;
     private String username;
+    private String email;
     private boolean vip;
     private Integer level;
     private Integer top;
-    private List<ProgressDto> progress = new ArrayList<>();
 }

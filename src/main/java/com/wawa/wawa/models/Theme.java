@@ -16,16 +16,18 @@ import java.util.Map;
 @NoArgsConstructor
 public class Theme implements EducationalMaterial{
 
+    private int id;
     private String section;
-    private String title;
+    private String name;
     private List<String> subTitles;
     private List<String> contents;
     private List<String> examples;
     private Integer idAuthor;
     private List<String> seeMore;
 
-    public Theme(String route){
+    public Theme(String route, int id){
         readFile(route);
+        this.id = id;
     }
 
     @Override
@@ -34,13 +36,15 @@ public class Theme implements EducationalMaterial{
         Map<String,String> data = new HashMap<>();
         BufferedReader br = new BufferedReader(new FileReader(route));
         String line;
-        br.readLine();
+
         while ((line = br.readLine()) != null) {
             String[] split = line.split("=",2);
             data.put(split[0],split[1]);
         }
+        br.close();
+
         this.section = data.get("section");
-        this.title = data.get("title");
+        this.name = data.get("name");
         this.subTitles = readSection(data.get("subTitles"));
         this.contents = readSection(data.get("contents"));
         this.examples = readSection(data.get("examples"));

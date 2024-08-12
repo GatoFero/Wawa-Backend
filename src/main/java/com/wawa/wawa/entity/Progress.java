@@ -17,10 +17,8 @@ public class Progress {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private String state;
-    private float progress;
-    private int themesCompleted;
-    private int activitiesCompleted;
-    private int examsCompleted;
+    private Float progress;
+    private Integer materialsCompleted;
 
     @ManyToOne(targetEntity = User.class, fetch = FetchType.LAZY)
     private User user;
